@@ -14,16 +14,7 @@ Trust must be granted **before** tapping. Homebrew 6.x refuses to clone an untru
 
 ## Requirements
 
-myrag needs a local Ollama daemon with two models pulled before it will work:
-
-```bash
-brew install ollama
-ollama serve &
-ollama pull nomic-embed-text
-ollama pull llama3.2
-```
-
-Then run:
+Nothing manual. `myrag` depends on the `ollama` formula, and on launch it automatically starts `ollama serve` if it isn't running and pulls the required models (`nomic-embed-text`, `llama3.2`) if they aren't present. The first run may take a few minutes while models download.
 
 ```bash
 myrag
