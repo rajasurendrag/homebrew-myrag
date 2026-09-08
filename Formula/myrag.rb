@@ -14,6 +14,12 @@ class Myrag < Formula
     bin.install_symlink libexec/"bin/myrag"
   end
 
+  def post_install_steps
+    Dir.glob("#{libexec}/**/*.{so,dylib}").each do |file|
+      system "codesign", "--force", "--sign", "-", file
+    end
+  end
+
   def caveats
     <<~EOS
       myrag needs a local Ollama daemon with two models pulled before it will work:
