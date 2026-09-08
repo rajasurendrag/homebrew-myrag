@@ -11,13 +11,17 @@ class Myrag < Formula
     system python, "-m", "venv", libexec
     system libexec/"bin/pip", "install", "--upgrade", "pip"
     system libexec/"bin/pip", "install", buildpath
-    bin.install_symlink libexec/"bin/myrag"
-  end
 
-  def post_install_steps
-    Dir.glob("#{libexec}/**/*.{so,dylib}").each do |file|
-      system "codesign", "--force", "--sign", "-", file
-    end
+    (bin/"myrag").write <<~SH
+      #!/bin/bash
+      marker="#{libexec}/.codesign-fixed"
+      if [ ! -f "$marker" ]; then
+        find "#{libexec}" \\( -name "*.so" -o -name "*.dylib" \\) -exec codesign --force --sign - {} \\; 2>/dev/null
+        touch "$marker"
+      fi
+      exec "#{libexec}/bin/myrag" "$@"
+    SH
+    (bin/"myrag").chmod 0755
   end
 
   def caveats
