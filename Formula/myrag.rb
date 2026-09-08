@@ -1,9 +1,10 @@
 class Myrag < Formula
   desc "Local CLI RAG chatbot backed by LangChain, LangGraph, Ollama and ChromaDB"
   homepage "https://github.com/rajasurendrag/rag"
-  url "https://github.com/rajasurendrag/rag/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "55851b74d0fafddec2a5aabdf8cc8522bf3fd82d253a8823b27597213f4f97db"
+  url "https://github.com/rajasurendrag/rag/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "a7cef434dbb9ea277605d226060eafa30c622e7d51aa854125f0e82cdc52816e"
 
+  depends_on "ollama"
   depends_on "python@3.13"
 
   def install
@@ -26,14 +27,11 @@ class Myrag < Formula
 
   def caveats
     <<~EOS
-      myrag needs a local Ollama daemon with two models pulled before it will work:
+      myrag starts Ollama and pulls the models it needs (nomic-embed-text,
+      llama3.2) automatically on first run, so the first launch may take a
+      few minutes.
 
-        brew install ollama
-        ollama serve &
-        ollama pull nomic-embed-text
-        ollama pull llama3.2
-
-      Then run:
+      Run:
 
         myrag
 
