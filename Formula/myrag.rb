@@ -1,8 +1,8 @@
 class Myrag < Formula
   desc "Local CLI RAG chatbot backed by LangChain, LangGraph, Ollama and ChromaDB"
   homepage "https://github.com/rajasurendrag/rag"
-  url "https://github.com/rajasurendrag/rag/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "2b475f1aae6fd994c638f84914bd4c94052e8395a5a78b71991b973045f1b639"
+  url "https://github.com/rajasurendrag/rag/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "55851b74d0fafddec2a5aabdf8cc8522bf3fd82d253a8823b27597213f4f97db"
 
   depends_on "python@3.13"
 
