@@ -1,6 +1,4 @@
 class Myrag < Formula
-  include Language::Python::Virtualenv
-
   desc "Local CLI RAG chatbot backed by LangChain, LangGraph, Ollama and ChromaDB"
   homepage "https://github.com/rajasurendrag/rag"
   url "https://github.com/rajasurendrag/rag/archive/refs/tags/v0.1.0.tar.gz"
@@ -9,8 +7,11 @@ class Myrag < Formula
   depends_on "python@3.13"
 
   def install
-    venv = virtualenv_create(libexec, "python3.13")
-    venv.pip_install_and_link buildpath
+    python = formula_opt_bin("python@3.13")/"python3.13"
+    system python, "-m", "venv", libexec
+    system libexec/"bin/pip", "install", "--upgrade", "pip"
+    system libexec/"bin/pip", "install", buildpath
+    bin.install_symlink libexec/"bin/myrag"
   end
 
   def caveats
